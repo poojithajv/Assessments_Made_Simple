@@ -107,7 +107,7 @@ const Dashboard = () => {
     let java_aptitude_percentage=0
     let java_technical_percentage=0
     data.javaData.map((item,index)=>{
-      java_aptitude_score+=item.aptitude_score,
+      java_aptitude_score+=item.aptitude_score
       java_technical_score+=item.technical_score
     })
 
@@ -239,8 +239,14 @@ const Dashboard = () => {
   }, []);
   const options = {
     legend: "none",
+    title:"Test Metrics",
     pieStartAngle: 100,
   };
+  const fresheroptions = {
+    legend:"none",
+    title:"FresherTestMetrics",
+    pieStartAngle:100,
+  }
   return (
     <div>
       <div style={{paddingLeft:'30px',paddingTop:'10px',backgroundColor:'#0047AB',color:'white',height:'65px',display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
@@ -256,87 +262,142 @@ const Dashboard = () => {
                 navigate('/adminLogin')}>Admin</p>
               </div>
         </div>
-      <div >
+      <div style={{display:"flex",flexDirection:"column"}}>
+        <div>
         <Chart
+        style={{
+          marginLeft:'0px',
+          width:'400px',
+          height:'400px'
+        }}
         chartType="PieChart"
         data={pieData}
         options={options}
-        width={"100%"}
-        height={"500px"}
-      />
+      ></Chart>
+      </div>
         </div>
-        <div style={{display:'flex',justifyContent:'center'}}>
-        <Chart
+        <div style={{display:'flex',alignItems:"center",flexWrap:"wrap"}}>
+       
+        <Chart 
+        style={{
+          marginLeft:'10px',
+          width:'400px',
+          height:'400px'
+        }}
         chartType="PieChart"
         data={fresherPieData}
-        options={options}
-        width={"100%"}
-        height={"500px"}
+        options={fresheroptions}
+        
       />
       <Chart
+       style={{
+          marginLeft:'0px',
+          width:'400px',
+          height:'400px'
+        }}
         chartType="PieChart"
         data={pythonPieData}
         options={options}
-        width={"100%"}
-        height={"500px"}
+      
       />
-      <Chart
-        chartType="PieChart"
-        data={shopifyPieData}
-        options={options}
-        width={"100%"}
-        height={"500px"}
-      />
-      <Chart
+         <Chart
+          style={{
+            marginLeft:'0px',
+            width:'400px',
+            height:'400px'
+          }}
         chartType="PieChart"
         data={fullStackPieData}
         options={options}
-        width={"100%"}
-        height={"500px"}
+       
       />
+      
+      </div>
+      <div style={{display:'flex',alignItems:"center",flexWrap:"wrap"}}>
       <Chart
+       style={{
+        marginLeft:'0px',
+        width:'400px',
+        height:'400px'
+      }}
         chartType="PieChart"
         data={javaPieData}
         options={options}
-        width={"100%"}
-        height={"500px"}
+      
       />
       <Chart
+       style={{
+        marginLeft:'0px',
+        width:'400px',
+        height:'400px'
+      }}
         chartType="PieChart"
         data={qaPieData}
         options={options}
-        width={"100%"}
-        height={"500px"}
+      
       />
-      <Chart
+      <Chart 
+       style={{
+        marginLeft:'0px',
+        width:'400px',
+        height:'400px'
+      }}
         chartType="PieChart"
         data={frontendfresherPieData}
         options={options}
-        width={"100%"}
-        height={"500px"}
+        
       />
+   
+      </div>
+    
+      <div style={{display:'flex',alignItems:"center",flexWrap:"wrap"}}>
+
+      
       <Chart
         chartType="PieChart"
         data={freshersJuniorPieData}
         options={options}
-        width={"100%"}
-        height={"500px"}
+        style={{
+          marginLeft:'0px',
+          width:'400px',
+          height:'400px'
+        }}
+       
       />
       <Chart
         chartType="PieChart"
         data={merndeveloperJuniorPieData}
         options={options}
-        width={"100%"}
-        height={"500px"}
+      
+        style={{
+          marginLeft:'0px',
+          width:'400px',
+          height:'400px'
+        }}
       />
       <Chart
         chartType="PieChart"
         data={merndeveloperintermediatePieData}
         options={options}
-        width={"100%"}
-        height={"500px"}
+        style={{
+          marginLeft:'0px',
+          width:'400px',
+          height:'400px'
+        }}
       />
-        </div>
+      </div>
+     <div>
+     <Chart
+        chartType="PieChart"
+        data={shopifyPieData}
+        options={options}
+        style={{
+          marginLeft:'0px',
+          width:'400px',
+          height:'400px'
+        }}
+      />
+     </div>
     </div>
   );
 };
