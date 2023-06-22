@@ -4,9 +4,9 @@ function Home() {
   const navigate=useNavigate()
   return (
     <>
-        <div style={{paddingLeft:'30px',paddingTop:'10px',backgroundColor:'#0047AB',color:'white',height:'65px',display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
+        <div style={{backgroundColor:'#1d1a69',color:'white',height:'60px',display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center', paddingRight:'15px', paddingLeft:'15px'}}>
               <div style={{display:'flex',alignItems:'center'}}>
-              <p onClick={()=>navigate('/')} style={{fontSize:'20px',marginRight:'30px',fontWeight:'bold'}}>ASSESSMENTS MADE SIMPLE </p>
+              <img src="https://res.cloudinary.com/dufx8zalt/image/upload/v1687419355/logoimage1_krvkbq.png" alt="logo" style={{height:'50px', width:'100px', borderRadius:'10px'}}/>
               </div>
               <div style={{display:'flex',flexDirection:'row',alignItems:'center'}}>
               <p onClick={()=>navigate('/')} style={{fontSize:'18px',marginRight:'20px'}}>Home</p>
