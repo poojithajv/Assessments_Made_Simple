@@ -54,17 +54,17 @@ const Dashboard = () => {
     ['Mern_Developer_Junior_Test',merndeveloperjunior],
     ['Shopify_Test',shopify]
   ]
-      let aptitude_score  = 0 
-      let technical_score = 0 
-      let aptitude_percentage=0
-      let technical_percentage=0
+      let freshers_aptitude_score  = 0 
+      let freshers_technical_score = 0 
+      let freshers_aptitude_percentage=0
+      let freshers_technical_percentage=0
 
     data.fresherData.map((item,index)=>{
-     aptitude_score+=item.aptitude_score
-     technical_score+=item.technical_score
+     freshers_aptitude_score+=item.aptitude_score
+     freshers_technical_score+=item.technical_score
    })
-   aptitude_percentage=aptitude_score/data.fresherData.length/ process.env.REACT_APP_FRESHER_TEST_APTITUDE_QUESTIONS*100
-   technical_percentage=technical_score/(data.fresherData.length*process.env.REACT_APP_FRESHER_TEST_TECHNICAL_QUESTIONS)*100
+   freshers_aptitude_percentage=freshers_aptitude_score/data.fresherData.length/ process.env.REACT_APP_FRESHER_TEST_APTITUDE_QUESTIONS*100
+   freshers_technical_percentage=freshers_technical_score/(data.fresherData.length*process.env.REACT_APP_FRESHER_TEST_TECHNICAL_QUESTIONS)*100
   
    let python_aptitude_score=0
    let python_technical_score=0
@@ -101,10 +101,80 @@ const Dashboard = () => {
 
     fullStack_java_percentage=fullStack_java_score/data.fullStackData.length/process.env.REACT_APP_FULL_STACK_TEST_JAVA_QUESTIONS*100
     fullStack_react_percentage=fullStack_react_score/data.fullStackData.length/process.env.REACT_APP_FULL_STACK_TEST_REACT_QUESTIONS*100
-  const fresherPieData=[
+  
+    let java_aptitude_score=0
+    let java_technical_score=0
+    let java_aptitude_percentage=0
+    let java_technical_percentage=0
+    data.javaData.map((item,index)=>{
+      java_aptitude_score+=item.aptitude_score,
+      java_technical_score+=item.technical_score
+    })
+
+    java_aptitude_percentage=java_aptitude_score/data.javaData.length/process.env.REACT_APP_JAVA_TEST_APTITUDE_QUESTIONS*100
+    java_technical_percentage=java_technical_score/data.javaData.length/process.env.REACT_APP_JAVA_TEST_TECHNICAL_QUESTIONS*100
+    
+    let Qa_aptitude_score=0
+    let Qa_technical_score=0
+    let Qa_aptitude_percentage=0
+    let Qa_technical_percentage=0
+    data.qaData.map((item,index)=>{
+      Qa_aptitude_score+=item.aptitude_score
+      Qa_technical_score+=item.technical_score
+    })
+    Qa_aptitude_percentage=Qa_aptitude_score/data.qaData.length/process.env.REACT_APP_QA_TEST_APTITUDE_QUESTIONS*100
+    Qa_technical_percentage=Qa_technical_score/data.qaData.length/process.env.REACT_APP_QA_TEST_TECHNICAL_QUESTIONS*100
+
+    let frontendfresher_aptitude_score=0
+    let frontendfresher_technical_score=0
+    let frontendfresher_aptitude_percentage=0
+    let frontendfresher_technical_percentage=0
+    data.frontEndFresherData.map((item,index)=>{
+      frontendfresher_aptitude_score+=item.aptitude_score
+      frontendfresher_technical_score+=item.technical_score
+    })
+    frontendfresher_aptitude_percentage=frontendfresher_aptitude_score/data.frontEndFresherData.length/process.env.REACT_APP_FRONTEND_FRESHER_TEST_APTITUDE_QUESTIONS*100
+    frontendfresher_technical_percentage=frontendfresher_technical_score/data.frontEndFresherData.length/process.env.REACT_APP_FRONTEND_FRESHER_TEST_TECHNICAL_QUESTIONS*100
+
+
+    let freshersJunior_aptitude_score=0
+    let freshersJunior_reasoning_score=0
+    let freshersJunior_aptitude_percentage=0
+    let freshersJunior_reasoning_percentage=0
+    data.freshersJuniorData.map((item,index)=>{
+      freshersJunior_aptitude_score+=item.aptitude_score
+      freshersJunior_reasoning_score+=item.reasoning_score
+    })
+    freshersJunior_aptitude_percentage=freshersJunior_aptitude_score/data.freshersJuniorData.length/process.env.REACT_APP_FRESHERS_JUNIOR_TEST_APTITUDE_QUESTIONS*100
+    freshersJunior_reasoning_percentage=freshersJunior_reasoning_score/data.freshersJuniorData.length/process.env.REACT_APP_FRESHERS_JUNIOR_TEST_REASONING_QUESTIONS*100
+
+    let merndeveloperintermediate_aptitude_score=0
+    let merndeveloperintermediate_technical_score=0
+    let merndeveloperintermediate_aptitude_percentage=0
+    let merndeveloperintermediate_technical_percentage=0
+    data.mernDeveloperIntermediateData.map((item,index)=>{
+      merndeveloperintermediate_aptitude_score+=item.aptitude_score
+      merndeveloperintermediate_technical_score+=item.technical_score
+    })
+    merndeveloperintermediate_aptitude_percentage=merndeveloperintermediate_aptitude_score/data.mernDeveloperIntermediateData.length/process.env.REACT_APP_MERN_DEVELOPER_INTERMEDIATE_TEST_APTITUDE_QUESTIONS*100
+    merndeveloperintermediate_technical_percentage=merndeveloperintermediate_technical_score/data.mernDeveloperIntermediateData.length/process.env.REACT_APP_MERN_DEVELOPER_INTERMEDIATE_TEST_TECHNICAL_QUESTIONS*100
+
+    let merndeveloperjunior_aptitude_score=0
+    let merndeveloperjunior_technical_score=0
+    let merndeveloperjunior_aptitude_percentage=0
+    let merndeveloperjunior_technical_percentage=0
+    data.mernDeveloperJuniorData.map((item,index)=>{
+      merndeveloperjunior_aptitude_score+=item.aptitude_score
+      merndeveloperjunior_technical_score+=item.technical_score
+    })
+
+    merndeveloperjunior_aptitude_percentage=merndeveloperjunior_aptitude_score/data.mernDeveloperJuniorData.length/process.env.REACT_APP_MERN_DEVELOPER_JUNIOR_TEST_APTITUDE_QUESTIONS*100
+    merndeveloperjunior_technical_percentage=merndeveloperjunior_technical_score/data.mernDeveloperJuniorData.length/process.env.REACT_APP_MERN_DEVELOPER_JUNIOR_TEST_TECHNICAL_QUESTIONS*100
+
+    const fresherPieData=[
     ["Language", "Speakers (in millions)"],
-    ['FreshersAptitude',aptitude_percentage],
-    ["FreshersTechnical",technical_percentage]
+    ['FreshersAptitude',freshers_aptitude_percentage],
+    ["FreshersTechnical",freshers_technical_percentage]
   ]
 
   const pythonPieData=[
@@ -123,6 +193,42 @@ const Dashboard = () => {
     ["Language", "Speakers (in millions)"],
     ['FullStackJava',fullStack_java_percentage],
     ['FullStackReact',fullStack_react_percentage]
+  ]
+
+  const javaPieData=[
+    ["Language", "Speakers (in millions)"],
+    ['JavaAptitude',java_aptitude_percentage],
+    ['JavaTechnical',java_technical_percentage]
+  ]
+
+  const qaPieData=[
+    ["Language", "Speakers (in millions)"],
+    ['QAAptitude',Qa_aptitude_percentage],
+    ['QATechnical',Qa_technical_percentage]
+  ]
+
+  const frontendfresherPieData=[
+    ["Language", "Speakers (in millions)"],
+    ['FrontEndFresherAptitude',frontendfresher_aptitude_percentage],
+    ['FrontEndFresherTechnical',frontendfresher_technical_percentage]
+  ]
+
+  const freshersJuniorPieData=[
+    ["Language", "Speakers (in millions)"],
+    ['FreshersJuniorAptitude',freshersJunior_aptitude_percentage],
+    ['FreshersJuniorReasoning',freshersJunior_reasoning_percentage]
+  ]
+
+  const merndeveloperintermediatePieData=[
+    ["Language", "Speakers (in millions)"],
+    ['MERNDeveloperIntermediateAptitude',merndeveloperintermediate_aptitude_percentage],
+    ['MERNDeveloperIntermediateTechnical',merndeveloperintermediate_technical_percentage]
+  ]
+
+  const merndeveloperJuniorPieData=[
+    ["Language", "Speakers (in millions)"],
+    ['MERNDeveloperJuniorAptitude',merndeveloperjunior_aptitude_percentage],
+    ['MERNDeveloeprJuniorTechnical',merndeveloperjunior_technical_percentage]
   ]
 
   useEffect(() => {
@@ -159,7 +265,7 @@ const Dashboard = () => {
         height={"500px"}
       />
         </div>
-        <div style={{display:'flex',flexDirection:'row'}}>
+        <div style={{display:'flex',justifyContent:'center'}}>
         <Chart
         chartType="PieChart"
         data={fresherPieData}
@@ -184,6 +290,48 @@ const Dashboard = () => {
       <Chart
         chartType="PieChart"
         data={fullStackPieData}
+        options={options}
+        width={"100%"}
+        height={"500px"}
+      />
+      <Chart
+        chartType="PieChart"
+        data={javaPieData}
+        options={options}
+        width={"100%"}
+        height={"500px"}
+      />
+      <Chart
+        chartType="PieChart"
+        data={qaPieData}
+        options={options}
+        width={"100%"}
+        height={"500px"}
+      />
+      <Chart
+        chartType="PieChart"
+        data={frontendfresherPieData}
+        options={options}
+        width={"100%"}
+        height={"500px"}
+      />
+      <Chart
+        chartType="PieChart"
+        data={freshersJuniorPieData}
+        options={options}
+        width={"100%"}
+        height={"500px"}
+      />
+      <Chart
+        chartType="PieChart"
+        data={merndeveloperJuniorPieData}
+        options={options}
+        width={"100%"}
+        height={"500px"}
+      />
+      <Chart
+        chartType="PieChart"
+        data={merndeveloperintermediatePieData}
         options={options}
         width={"100%"}
         height={"500px"}
