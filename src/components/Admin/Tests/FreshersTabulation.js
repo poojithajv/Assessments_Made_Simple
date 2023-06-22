@@ -3,14 +3,15 @@ import {useNavigate} from 'react-router-dom'
 import {useLocation} from 'react-router-dom'
 import '../Tabulation.css'
 
-const PythonTest = () =>{
+const FreshersTest = () =>{
     const location=useLocation()
     const [data,setData]=useState(location.state)
       const navigate=useNavigate()
       
+      
     return (
         <div style={{display:'flex',flexDirection:'column',textAlign:'center',paddingTop:'20px'}}>
-            <h1 style={{marginBottom:'20px'}}>Python Test Tabulation Data</h1>
+            <h1 style={{marginBottom:'20px'}}>Freshers Test Tabulation Data</h1>
             {data.length> 0 ? <table border="2px" style={{margin:'auto'}}>
                 <thead>
                     <tr>
@@ -36,9 +37,8 @@ const PythonTest = () =>{
                         <td>{item.aptitude_score}</td>
                         <td>{item.technical_score}</td>
                         <td>
-                            <button onClick={()=>navigate('/studentChart',{state:item})
-                            } >
-                                View Profile
+                            <button onClick={()=>navigate('/studentChart',{state:item})} >
+                                View
                             </button>
                         </td>
                     </tr>)}
@@ -47,4 +47,4 @@ const PythonTest = () =>{
         </div>
     )
 }
-export default PythonTest
+export default FreshersTest

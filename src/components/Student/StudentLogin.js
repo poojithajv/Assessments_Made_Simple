@@ -19,6 +19,7 @@ export default function StudentLogin() {
   const [message, setMessage] = useState("");
 
   const testDetails = [
+    { testName: "Freshers Junior Test", path: "/fresher-junior-test" },
     { testName: "Fresher Test", path: "/fresher-test" },
     { testName: "Freshers QA Test", path: "/fresher-qa-test" },
     {

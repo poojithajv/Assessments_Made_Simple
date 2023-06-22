@@ -19,11 +19,11 @@ const AdminLogin = () => {
   const [javaData,setJavaData]=useState([])
   const [mernDeveloperJuniorData,setMernDeveloperJuniorData]=useState([])
   const [qaData,setQAData]=useState([])
+  const [freshersJuniorData,setFreshersJuniorData]=useState([])
   const [userEmail, setUserEmail] = useState("");
   const [isSignedIn, setIsSignedIn] = useState(false);
   const navigate=useNavigate()
 
-  const { addToReports, reports } = React.useContext(TestContext);
 
 
   useEffect(() => {
@@ -62,6 +62,7 @@ const AdminLogin = () => {
           executeRequestJavaTest()
           executeRequestMernDeveloperJuniorTest()
           executeRequestQATest()
+          executeRequestFreshersJuniorTest()
           getUserEmail();
         })
         .catch((error) => {
@@ -294,7 +295,33 @@ const AdminLogin = () => {
         })
         .then((response) => {
           const values = response.result.values || [];
-          console.log('QA',values);
+          // console.log('QA',values);
+          const headers = values[0];
+          const jsonData = values.slice(1).map((row) => {
+            const item = {};
+            row.forEach((value, index) => {
+              item[headers[index]] = value;
+            });
+            return item;
+          });
+          // console.log(jsonData, "json");
+          setQAData(jsonData);
+        })
+        .catch((error) => {
+          console.error("Error executing request", error);
+        });
+    };
+
+    const executeRequestFreshersJuniorTest = () => {
+      if (isSignedIn) return; // Don't execute if user is not signed in
+      window.gapi.client.sheets.spreadsheets.values
+        .get({
+          spreadsheetId: process.env.REACT_APP_FRESHERS_JUNIOR_TEST_SHEET_ID,
+          range: process.env.REACT_APP_FRESHERS_JUNIOR_TEST_SHEET_NAME,
+        })
+        .then((response) => {
+          const values = response.result.values || [];
+          console.log('fj',values);
           const headers = values[0];
           const jsonData = values.slice(1).map((row) => {
             const item = {};
@@ -304,7 +331,7 @@ const AdminLogin = () => {
             return item;
           });
           console.log(jsonData, "json");
-          setQAData(jsonData);
+          setFreshersJuniorData(jsonData);
         })
         .catch((error) => {
           console.error("Error executing request", error);
@@ -328,7 +355,7 @@ const AdminLogin = () => {
     };
 
     loadGoogleAPI();
-  }, [reports]);
+  }, []);
 
   const fetchFresherData=()=>{
     fresherData.map((item,index)=>{
@@ -353,7 +380,7 @@ const AdminLogin = () => {
     })
      item.aptitude_score = aptitude_score
      item.technical_score =  technical_score
-     item.score =  aptitude_score + technical_score
+     item.total_score =  aptitude_score + technical_score
      item.testType='Freshers Test'
    })
   }
@@ -423,7 +450,7 @@ const AdminLogin = () => {
       })
       item.aptitude_score = aptitude_score
       item.technical_score =  technical_score
-      item.score =  aptitude_score + technical_score
+      item.total_score =  aptitude_score + technical_score
       item.testType='Shopify Test'
   })
   }
@@ -459,6 +486,7 @@ const AdminLogin = () => {
         // console.log('technical_score',technical_score)
         item.aptitude_score=aptitude_score
         item.technical_score=technical_score
+        item.total_score =  aptitude_score + technical_score
         item.testType='Front End Fresher Test'
     })
   }
@@ -489,7 +517,7 @@ const fetchFullStackData=()=>{
     })
     item.fullstack_java_score = fullstack_java_score
     item.fullstack_react_score  = fullstack_react_score
-    item.score = fullstack_java_score+fullstack_react_score
+    item.total_score = fullstack_java_score+fullstack_react_score
     item.testType='Full Stack Test'
 })
 }
@@ -523,6 +551,7 @@ useEffect(()=>{
         // console.log('technical_score',technical_score)
         item.aptitude_score=aptitude_score
         item.technical_score=technical_score
+        item.total_score =  aptitude_score + technical_score
         item.testType='MERN Developer Intermediate Test'
     })
   }
@@ -559,6 +588,7 @@ useEffect(()=>{
         // console.log('technical_score',technical_score)
         item.aptitude_score=aptitude_score
         item.technical_score=technical_score
+        item.total_score =  aptitude_score + technical_score
         item.testType='Java Test'
     })
   }
@@ -594,6 +624,7 @@ useEffect(()=>{
         // console.log('technical_score',technical_score)
         item.aptitude_score=aptitude_score
         item.technical_score=technical_score
+        item.total_score =  aptitude_score + technical_score
         item.testType='MERN Developer Junior Test'
     })
   }
@@ -632,6 +663,7 @@ useEffect(()=>{
         console.log('technical_score',technical_score)
         item.aptitude_score=aptitude_score
         item.technical_score=technical_score
+        item.total_score =  aptitude_score + technical_score
         item.testType='QA Test'
     })
   }
@@ -639,6 +671,42 @@ useEffect(()=>{
   useEffect(()=>{
     fetchQAData()
   },[qaData])
+
+  const fetchFreshersJuniorData=()=>{
+    let aptitude=JSON.parse(process.env.REACT_APP_FRESHERS_JUNIOR_TEST_APTITUDE_QUESTIONS_ANSWERS)
+    let reasoning=JSON.parse(process.env.REACT_APP_FRESHERS_JUNIOR_TEST_REASONING_QUESTIONS_ANSWERS)
+    freshersJuniorData.map((item,index)=>{
+        let aptitude_score=0
+        let reasoning_score=0
+        Object.keys(item).map((score,i)=>{
+            if (i>5 && i<31){
+                if ((i-5) in aptitude){
+                    // console.log(item[score])
+                    if (item[score]===aptitude[i-5]){
+                        aptitude_score+=1
+                    }
+                }
+            }else if(i>30 && i<56){
+                if ((i-30) in reasoning){ 
+                    // console.log(item[score])   
+                    // console.log(technical[i-30])           
+                    if (item[score]===reasoning[i-30]){
+                        reasoning_score+=1
+                    }
+                }
+            }
+        })
+        // console.log('aptitude_score',aptitude_score)
+        // console.log('technical_score',technical_score)
+        item.aptitude_score=aptitude_score
+        item.reasoning_score=reasoning_score
+        item.total_score =  aptitude_score + reasoning_score
+        item.testType='Freshers Junior Test'
+    })
+  }
+  useEffect(()=>{
+    fetchFreshersJuniorData()
+  },[freshersJuniorData])
 
   let allData=[]
   allData.push(fresherData)
@@ -650,6 +718,7 @@ useEffect(()=>{
   allData.push(javaData)
   allData.push(mernDeveloperJuniorData)
   allData.push(qaData)
+  allData.push(freshersJuniorData)
   console.log(allData)
 
   const handleSignIn = () => {
@@ -691,7 +760,8 @@ useEffect(()=>{
     fullStackData,
     javaData,
     mernDeveloperJuniorData,
-    qaData
+    qaData,
+    freshersJuniorData
   }
   console.log(datat)
   let finalData={
@@ -705,7 +775,7 @@ useEffect(()=>{
           {isSignedIn ? (
             <div style={{paddingLeft:'30px',paddingTop:'10px',backgroundColor:'#0047AB',color:'white',height:'65px',display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
               <div style={{display:'flex',alignItems:'center'}}>
-              <p onClick={()=>navigate('/')}style={{fontSize:'20px',marginRight:'30px',fontWeight:'bold'}}>KLOC HIREME </p>
+              <p onClick={()=>navigate('/')}style={{fontSize:'20px',marginRight:'30px',fontWeight:'bold'}}>ASSESSMENTS MADE SIMPLE </p>
               <p onClick={()=>navigate('/dashboard',{state:finalData})} style={{fontSize:'18px',marginRight:'20px'}}>Dashboard</p>
               <p onClick={()=>navigate('/sendAssessments',{state:finalData})}style={{fontSize:'18px',marginRight:'20px'}}>Assessments</p>
               <p onClick={()=>navigate('/testReports',{state:finalData})} style={{fontSize:'18px',marginRight:'20px'}}>Test Reports</p>

@@ -69,6 +69,12 @@ const TestReports = () => {
       url: "https://www.bigscal.com/wp-content/uploads/2022/09/Features-of-Mern-stack-development-services-You-Should-Know.png",
       data:data.datat.mernDeveloperIntermediateData
     },
+    {
+      name:'Freshers Junior',
+      id:"freshers_junior_test",
+      url:'https://play-lh.googleusercontent.com/8HEJdrLd48HwrAzlRva8xjG1wxCuu0VUd9ML6ySw76q-lBD0AeWofbNZqYPrjWSCgf8=w240-h480-rw',
+      data:data.datat.freshersJuniorData
+    }
   ];
 
   useEffect(() => {
@@ -82,7 +88,7 @@ const TestReports = () => {
     <div>
       <div style={{paddingLeft:'30px',paddingTop:'10px',backgroundColor:'#0047AB',color:'white',height:'65px',display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
               <div style={{display:'flex',alignItems:'center'}}>
-              <p onClick={()=>navigate('/')}style={{fontSize:'20px',marginRight:'30px',fontWeight:'bold'}}>KLOC HIREME </p>
+              <p onClick={()=>navigate('/')}style={{fontSize:'20px',marginRight:'30px',fontWeight:'bold'}}>ASSESSMENTS MADE SIMPLE </p>
               <p onClick={()=>navigate('/dashboard',{state:data})} style={{fontSize:'18px',marginRight:'20px'}}>Dashboard</p>
               <p onClick={()=>navigate('/sendAssessments',{state:data})}style={{fontSize:'18px',marginRight:'20px'}}>Assessments</p>
               <p onClick={()=>navigate('/testReports',{state:data})} style={{fontSize:'18px',marginRight:'20px'}}>Test Reports</p>
@@ -90,7 +96,7 @@ const TestReports = () => {
               </div>
               <div style={{marginRight:'30px'}}>
                 <p style={{color:'white'}} onClick={()=>
-                navigate('/adminLogin')}>Sign Out</p>
+                navigate('/adminLogin')}>Admin</p>
               </div>
             </div>
       <div>

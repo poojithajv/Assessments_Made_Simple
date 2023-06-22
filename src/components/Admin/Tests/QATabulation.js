@@ -3,14 +3,13 @@ import {useNavigate} from 'react-router-dom'
 import {useLocation} from 'react-router-dom'
 import '../Tabulation.css'
 
-function MernDeveloperIntermediateTest() {
-    const location=useLocation()
+function QATest() {
+  const location=useLocation()
     const [data,setData]=useState(location.state)
       const navigate=useNavigate()
-      
     return (
         <div style={{display:'flex',flexDirection:'column',textAlign:'center',paddingTop:'20px'}}>
-            <h1 style={{marginBottom:'20px'}}>MERN Developer Intermediate Test Tabulation Data</h1>
+            <h1 style={{marginBottom:'20px'}}>QA Test Tabulation Data</h1>
             {data.length> 0 ? <table border="2px" style={{margin:'auto'}}>
                 <thead>
                     <tr>
@@ -38,7 +37,7 @@ function MernDeveloperIntermediateTest() {
                         <td>
                             <button onClick={()=>navigate('/studentChart',{state:item})
                             } >
-                                View Profile
+                                View
                             </button>
                         </td>
                     </tr>)}
@@ -48,4 +47,4 @@ function MernDeveloperIntermediateTest() {
     )
 }
 
-export default MernDeveloperIntermediateTest
+export default QATest

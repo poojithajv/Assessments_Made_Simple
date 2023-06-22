@@ -3,36 +3,14 @@ import {useNavigate} from 'react-router-dom'
 import {useLocation} from 'react-router-dom'
 import '../Tabulation.css'
 
-const FreshersTest = () =>{
+function MernDeveloperIntermediateTest() {
     const location=useLocation()
     const [data,setData]=useState(location.state)
       const navigate=useNavigate()
       
-      const handleUpdate=(item)=>{
-        if (item.Total_Score===undefined){
-            fetch(`https://sheetdb.io/api/v1/vb4aav1qqqljw/Email_Address/${item.Email_Address}`,{
-                method: "PATCH",
-                headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                Authorization: "Bearer kro94gbjqirjz8peq8wqw4qjj35j5p72ptkohjcw",
-                },
-                body: JSON.stringify({
-                    data: {
-                      Aptitude_Score: item.aptitude_score,
-                      Technical_Score: item.technical_score,
-                      Total_Score:
-                        item.aptitude_score+item.technical_score
-                    },
-                  }),
-            })
-            .then((response) => response.json())
-            .then((data) => console.log(data));
-        }
-      }
     return (
         <div style={{display:'flex',flexDirection:'column',textAlign:'center',paddingTop:'20px'}}>
-            <h1 style={{marginBottom:'20px'}}>Freshers Test Tabulation Data</h1>
+            <h1 style={{marginBottom:'20px'}}>MERN Developer Intermediate Test Tabulation Data</h1>
             {data.length> 0 ? <table border="2px" style={{margin:'auto'}}>
                 <thead>
                     <tr>
@@ -58,9 +36,9 @@ const FreshersTest = () =>{
                         <td>{item.aptitude_score}</td>
                         <td>{item.technical_score}</td>
                         <td>
-                            <button onClick={()=>{navigate('/studentChart',{state:item})
-                            handleUpdate(item)}} >
-                                View Profile
+                            <button onClick={()=>navigate('/studentChart',{state:item})
+                            } >
+                                View
                             </button>
                         </td>
                     </tr>)}
@@ -69,4 +47,5 @@ const FreshersTest = () =>{
         </div>
     )
 }
-export default FreshersTest
+
+export default MernDeveloperIntermediateTest

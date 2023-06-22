@@ -3,14 +3,14 @@ import {useNavigate} from 'react-router-dom'
 import {useLocation} from 'react-router-dom'
 import '../Tabulation.css'
 
-function FullStackTest() {
+const PythonTest = () =>{
     const location=useLocation()
     const [data,setData]=useState(location.state)
       const navigate=useNavigate()
       
     return (
         <div style={{display:'flex',flexDirection:'column',textAlign:'center',paddingTop:'20px'}}>
-            <h1 style={{marginBottom:'20px'}}>Full Stack Test Tabulation Data</h1>
+            <h1 style={{marginBottom:'20px'}}>Python Test Tabulation Data</h1>
             {data.length> 0 ? <table border="2px" style={{margin:'auto'}}>
                 <thead>
                     <tr>
@@ -33,12 +33,12 @@ function FullStackTest() {
                         <td>{item.Email_Address}</td>
                         <td>{item.Phone_Number}</td>
                         <td>{item.Score}</td>
-                        <td>{item.fullstack_java_score}</td>
-                        <td>{item.fullstack_react_score}</td>
+                        <td>{item.aptitude_score}</td>
+                        <td>{item.technical_score}</td>
                         <td>
                             <button onClick={()=>navigate('/studentChart',{state:item})
                             } >
-                                View Profile
+                                View
                             </button>
                         </td>
                     </tr>)}
@@ -47,5 +47,4 @@ function FullStackTest() {
         </div>
     )
 }
-
-export default FullStackTest
+export default PythonTest

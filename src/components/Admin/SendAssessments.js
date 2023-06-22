@@ -4,29 +4,52 @@ import uniqueRandom from "unique-random";
 import emailjs from "@emailjs/browser";
 import "./index.css";
 import Navbar from "./Navbar";
-import { useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
-const tests = [
-  "Fresher Test",
-  "Freshers QA Test",
-  "Full Stack Developer Test",
-  "Freshers Python Test",
-  "Freshers Java Test",
-  "Frontend Freshers Test",
-  "Shopify Developer Test",
-  "MERN Developer Junior Test",
-  "MERN Developer Intermediate Test",
-];
-const SendAssessments = () => {
+import { useLoaderData, useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import { Alert } from "@mui/material";
+import {useLocation} from 'react-router-dom'
+const Assessment = () => {
   const [activeTest, setActiveTest] = useState("");
   const [studentCount, setStudentCount] = useState(1);
   const [proceeding, setProceeding] = useState(false);
   const [candidateFields, setCandidateFields] = useState([]);
+  const [open, setOpen] = useState(false);
   const location=useLocation()
   const [finalData,setFinalData]=useState(location.state)
+  const tests = [
+    "Freshers Junior Test",
+    "Fresher Test",
+    "Freshers QA Test",
+    "Full Stack Developer Test",
+    "Freshers Python Test",
+    "Freshers Java Test",
+    "Frontend Freshers Test",
+    "Shopify Developer Test",
+    "MERN Developer Junior Test",
+    "MERN Developer Intermediate Test",
+  ];
+  const isEmptyField = candidateFields.some((each) =>
+    Object.values(each).some((value) => value === "")
+  );
+  const handleClickOpen = () => {
+    if (!isEmptyField) {
+      setOpen(true);
+    }
+    if (isEmptyField) {
+      alert("Please fill in all the candidate details");
+      return;
+    }
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   const navigate = useNavigate();
-
   useEffect(() => {
     const token = Cookies.get("token");
     if (!token) {
@@ -50,7 +73,6 @@ const SendAssessments = () => {
       setCandidateFields(Array.from({ length: studentCount }, () => ({})));
     }
   };
-
   const sendingMailThroughEmailJs = (student) => {
     console.log(student);
     emailjs
@@ -98,34 +120,23 @@ const SendAssessments = () => {
       .then((response) => response.json())
       .then((data) => console.log(data))
       .catch((error) => console.log(error));
-
     // sendingMailThroughEmailJs(details);
   };
-
   const onClickSendAssessment = () => {
-    console.log(candidateFields);
-
+    console.log("triggered");
     // Check if any of the candidate input fields are empty
-    const isEmptyField = candidateFields.some((each) =>
-      Object.values(each).some((value) => value === "")
-    );
-
-    if (isEmptyField) {
-      alert("Please fill in all the candidate details");
-      return;
-    }
-
     candidateFields.forEach((each) => {
       updateStudentThroughSheetDb(each);
+      sendingMailThroughEmailJs(each);
     });
+    handleClose();
+    setProceeding(false);
   };
-
-
   return (
-    <div>
+    <div className="send-assessment-container">
       <div style={{paddingLeft:'30px',paddingTop:'10px',backgroundColor:'#0047AB',color:'white',height:'65px',display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
               <div style={{display:'flex',alignItems:'center'}}>
-              <p onClick={()=>navigate('/')}style={{fontSize:'20px',marginRight:'30px',fontWeight:'bold'}}>KLOC HIREME </p>
+              <p onClick={()=>navigate('/')}style={{fontSize:'20px',marginRight:'30px',fontWeight:'bold'}}>ASSESSMENTS MADE SIMPLE </p>
               <p onClick={()=>navigate('/dashboard',{state:finalData})} style={{fontSize:'18px',marginRight:'20px'}}>Dashboard</p>
               <p onClick={()=>navigate('/sendAssessments',{state:finalData})}style={{fontSize:'18px',marginRight:'20px'}}>Assessments</p>
               <p onClick={()=>navigate('/testReports',{state:finalData})} style={{fontSize:'18px',marginRight:'20px'}}>Test Reports</p>
@@ -133,46 +144,45 @@ const SendAssessments = () => {
               </div>
               <div style={{marginRight:'30px'}}>
                 <p style={{color:'white'}}onClick={()=>
-                navigate('/adminLogin')}>Sign Out</p>
+                navigate('/adminLogin')}>Admin</p>
               </div>
             </div>
       <div>
-        <div className='radio-button-container'>
-          <div className='d-flex assessment-container'>
-            <div>
-              {tests.map((each, index) => (
-                <div className='radio-input-field-container' key={each}>
-                  <label className='each-check-box'>
-                    <input
-                      onChange={(e) => setActiveTest(e.target.value)}
-                      value={each}
-                      name='test'
-                      type='radio'
-                      required
-                    />
-                    <span className='checkmark'> {each}</span>
-                  </label>
+        <div className="assessment-container">
+          <div>
+            {tests.map((each, index) => (
+              <div key={index} className="input-container">
+                <div style={{marginTop:'5px'}}>
                   <input
-                    disabled={activeTest !== each}
-                    className='test-count-input input-fields'
-                    type='text'
-                    onChange={(e) => setStudentCount(e.target.value)}
-                    value={activeTest === each ? studentCount : ""}
+                    type="radio"
+                    name="test"
+                    id={index}
+                    onChange={(e) => setActiveTest(e.target.value)}
+                    value={each}
+                    style={{marginRight:'10px',transform: 'scale(1.2)'}}
                   />
-                  <br />
+                  <label htmlFor={index} style={{fontSize:'18px'}}>{each}</label>
                 </div>
-              ))}
-            </div>
+                <input
+                  disabled={activeTest !== each}
+                  type="number"
+                  className="user-input"
+                  id={index}
+                  onChange={(e) => setStudentCount(e.target.value)}
+                  value={activeTest === each ? studentCount : ""}
+                />
+              </div>
+            ))}
           </div>
-          <button
+          <Button
+            variant="contained"
+            className="assessment-button m-3"
             onClick={onClickProceed}
-            className='btn btn-primary Proceed-button'
-            type='button'
           >
             Proceed
-          </button>
+          </Button>
         </div>
-        <div className='each-input-student-details-div'>
+        <div className="each-input-student-details-div">
           {proceeding &&
             Array.from({ length: studentCount }, (_, index) => (
               <EachCandidateInputField
@@ -181,15 +191,32 @@ const SendAssessments = () => {
                 onInputChange={(values) => handleInputChange(index, values)}
               />
             ))}
-
           {proceeding && (
-            <div className='text-center'>
-              <button
-                onClick={onClickSendAssessment}
-                className='btn btn-primary m-2'
-              >
+            <div className="text-center">
+              <Button variant="contained" onClick={handleClickOpen}>
                 Send Assessment
-              </button>
+              </Button>
+              <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">
+                  {"Are You Sure You Want To Send?"}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    Let's Check onces before sending the assessment !
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose}>Disagree</Button>
+                  <Button onClick={onClickSendAssessment} autoFocus>
+                    Agree
+                  </Button>
+                </DialogActions>
+              </Dialog>
             </div>
           )}
         </div>
@@ -197,4 +224,4 @@ const SendAssessments = () => {
     </div>
   );
 };
-export default SendAssessments;
+export default Assessment;
