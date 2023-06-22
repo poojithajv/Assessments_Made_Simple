@@ -24,13 +24,18 @@
     border-radius:10px;
 }
 
-.headerNavbarContainer{
+.desktopHeaderNavbarContainer{
     display:flex;
     flex-direction:row;
     align-items:center;
 }
 
+.mobileHeaderNavbarContainer{
+    display:none;
+}
+
 .headerNavbarLink{
+    font-weight:bold;
     font-size:18px;
     margin-right:20px;
     margin-bottom:0px;
@@ -38,6 +43,19 @@
 }
 
 .headerNavbarLink:hover{
-    transform: scale(1.5);
-    transition: transform 3s;
+    transform: scale(1.2);
+    transition: transform 2s;
+    color:cyan;
+}
+
+@media (max-width:768px){
+    .desktopHeaderNavbarContainer{
+        display:none;
+    }
+    .mobileHeaderNavbarContainer{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        font-size:28px;
+    }
 }
