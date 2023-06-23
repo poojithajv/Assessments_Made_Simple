@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
@@ -27,7 +27,7 @@ function StudentReports() {
   };
 
   const handleFilter = () => {
-    const filtered = data1.filter((item) => {
+    const filtered = filterData.filter((item) => {
       const itemDate = new Date(item.Timestamp);
       const start = new Date(startDate);
       const end = new Date(endDate);
@@ -37,6 +37,9 @@ function StudentReports() {
     setFilterData(filtered);
   };
   const filteredData = filterData.filter((i) =>
+    i.Email_Address.toLowerCase().includes(search.toLowerCase())
+  );
+  const searchData = filterData.filter((i) =>
     i.Email_Address.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -62,6 +65,30 @@ function StudentReports() {
       ),
     },
   ];
+
+  // Update renderCell function for score columns
+  const scoreColumns = [
+    "aptitude_score",
+    "technical_score",
+    "fullstack_java_score",
+    "fullstack_react_score",
+    "reasoning_score",
+  ];
+
+  scoreColumns.forEach((column) => {
+    const columnIndex = columns.findIndex((col) => col.field === column);
+    if (columnIndex !== -1) {
+      columns[columnIndex].renderCell = (params) => {
+        const fieldValue = params.value || "NA";
+        return <span>{fieldValue}</span>;
+      };
+    }
+  });
+
+  useEffect(() => {
+    setFilterData(searchData);
+    //console.log("triggered");
+  }, []);
 
   return (
     <>
@@ -179,83 +206,85 @@ function StudentReports() {
         </div>
         <div style={{ width: "100%" }}>
           {filteredData.length > 0 ? (
-            // <table border='2px'>
-            //   <thead>
-            //     <tr>
-            //       <th>Id</th>
-            //       <th>Completed On</th>
-            //       <th>Name</th>
-            //       <th>Email Address</th>
-            //       <th>Phone Number</th>
-            //       <th>Total Score</th>
-            //       <th>Aptitude Score</th>
-            //       <th>Technical Score</th>
-            //       <th>Java Score</th>
-            //       <th>React Score</th>
-            //       <th>Reasoning Score</th>
-            //       <th>Test Type</th>
-            //       <th>View Score</th>
-            //     </tr>
-            //   </thead>
-            //   <tbody>
-            //     {filteredData.map((item, index) => (
-            //       <tr key={index}>
-            //         <td>{index + 1}</td>
-            //         <td>{item.Timestamp}</td>
-            //         <td>{item.Name}</td>
-            //         <td>{item.Email_Address}</td>
-            //         <td>{item.Phone_Number}</td>
-            //         <td>{item.Score}</td>
-            //         <td>
-            //           {item.aptitude_score === undefined
-            //             ? "NA"
-            //             : item.aptitude_score}
-            //         </td>
-            //         <td>
-            //           {item.technical_score === undefined
-            //             ? "NA"
-            //             : item.technical_score}
-            //         </td>
-            //         <td>
-            //           {item.fullstack_java_score === undefined
-            //             ? "NA"
-            //             : item.fullstack_java_score}
-            //         </td>
-            //         <td>
-            //           {item.fullstack_react_score === undefined
-            //             ? "NA"
-            //             : item.fullstack_react_score}
-            //         </td>
-            //         <td>
-            //           {item.reasoning_score === undefined
-            //             ? "NA"
-            //             : item.reasoning_score}
-            //         </td>
-            //         <td>{item.testType}</td>
-            //         <td>
-            //           <button
-            //             onClick={() =>
-            //               navigate("/studentChart", { state: item })
-            //             }
-            //           >
-            //             View
-            //           </button>
-            //         </td>
-            //       </tr>
-            //     ))}
-            //   </tbody>
-            // </table>
-            <div style={{ minHeight: 100, width: "100%" }}>
-              <DataGrid
-                rows={filterData}
-                columns={columns}
-                initialState={{
-                  pagination: {
-                    paginationModel: { page: 0, pageSize: 5 },
-                  },
-                }}
-                pageSizeOptions={[5, 10, 15, 20]}
-              />
+            <div className='table-container'>
+              {/* <table border='2px'>
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Completed On</th>
+                    <th>Name</th>
+                    <th>Email Address</th>
+                    <th>Phone Number</th>
+                    <th>Total Score</th>
+                    <th>Aptitude Score</th>
+                    <th>Technical Score</th>
+                    <th>Java Score</th>
+                    <th>React Score</th>
+                    <th>Reasoning Score</th>
+                    <th>Test Type</th>
+                    <th>View Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredData.map((item, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{item.Timestamp}</td>
+                      <td>{item.Name}</td>
+                      <td>{item.Email_Address}</td>
+                      <td>{item.Phone_Number}</td>
+                      <td>{item.Score}</td>
+                      <td>
+                        {item.aptitude_score === undefined
+                          ? "NA"
+                          : item.aptitude_score}
+                      </td>
+                      <td>
+                        {item.technical_score === undefined
+                          ? "NA"
+                          : item.technical_score}
+                      </td>
+                      <td>
+                        {item.fullstack_java_score === undefined
+                          ? "NA"
+                          : item.fullstack_java_score}
+                      </td>
+                      <td>
+                        {item.fullstack_react_score === undefined
+                          ? "NA"
+                          : item.fullstack_react_score}
+                      </td>
+                      <td>
+                        {item.reasoning_score === undefined
+                          ? "NA"
+                          : item.reasoning_score}
+                      </td>
+                      <td>{item.testType}</td>
+                      <td>
+                        <button
+                          onClick={() =>
+                            navigate("/studentChart", { state: item })
+                          }
+                        >
+                          View
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table> */}
+              <div style={{ minHeight: 100, width: "100%" }}>
+                <DataGrid
+                  rows={filterData}
+                  columns={columns}
+                  initialState={{
+                    pagination: {
+                      paginationModel: { page: 0, pageSize: 5 },
+                    },
+                  }}
+                  pageSizeOptions={[5, 10, 15, 20]}
+                />
+              </div>
             </div>
           ) : (
             "No Data Found"
