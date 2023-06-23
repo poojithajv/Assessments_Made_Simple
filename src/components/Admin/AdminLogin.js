@@ -6,6 +6,9 @@ import Cookies from "js-cookie";
 import { v4 as uuidv4 } from "uuid";
 import { gapi } from "gapi-script";
 import { useNavigate } from "react-router-dom";
+import {GiHamburgerMenu} from "react-icons/gi"
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 import "./index.css";
 const SCOPES = "https://www.googleapis.com/auth/spreadsheets.readonly";
 
@@ -773,18 +776,43 @@ useEffect(()=>{
       <div>
         <p>
           {isSignedIn ? (
-            <div style={{paddingLeft:'30px',paddingTop:'10px',backgroundColor:'#0047AB',color:'white',height:'65px',display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
-              <div style={{display:'flex',alignItems:'center'}}>
-              <p onClick={()=>navigate('/')}style={{fontSize:'20px',marginRight:'30px',fontWeight:'bold'}}>ASSESSMENTS MADE SIMPLE </p>
-              <p onClick={()=>navigate('/dashboard',{state:finalData})} style={{fontSize:'18px',marginRight:'20px'}}>Dashboard</p>
-              <p onClick={()=>navigate('/sendAssessments',{state:finalData})}style={{fontSize:'18px',marginRight:'20px'}}>Assessments</p>
-              <p onClick={()=>navigate('/testReports',{state:finalData})} style={{fontSize:'18px',marginRight:'20px'}}>Test Reports</p>
-              <p onClick={()=>navigate('/studentReports',{state:finalData})} style={{fontSize:'18px'}}>Student Reports</p>
+            // <div style={{paddingLeft:'30px',paddingTop:'10px',backgroundColor:'#0047AB',color:'white',height:'65px',display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
+            //   <div style={{display:'flex',alignItems:'center'}}>
+            //   <p onClick={()=>navigate('/')}style={{fontSize:'20px',marginRight:'30px',fontWeight:'bold'}}>ASSESSMENTS MADE SIMPLE </p>
+            //   <p onClick={()=>navigate('/dashboard',{state:finalData})} style={{fontSize:'18px',marginRight:'20px'}}>Dashboard</p>
+            //   <p onClick={()=>navigate('/sendAssessments',{state:finalData})}style={{fontSize:'18px',marginRight:'20px'}}>Assessments</p>
+            //   <p onClick={()=>navigate('/testReports',{state:finalData})} style={{fontSize:'18px',marginRight:'20px'}}>Test Reports</p>
+            //   <p onClick={()=>navigate('/studentReports',{state:finalData})} style={{fontSize:'18px'}}>Student Reports</p>
+            //   </div>
+            //   <div style={{marginRight:'30px'}}>
+            //     <p style={{color:'white'}}onClick={handleSignOut}>Sign Out</p>
+            //   </div>
+            // </div>
+            <div className="admin-header-container">
+            <div className="admin-header-logo-container">
+                    <img src="https://res.cloudinary.com/dufx8zalt/image/upload/v1687419355/logoimage1_krvkbq.png" alt="logo" style={{height:'50px', width:'100px', borderRadius:'10px'}} onClick={()=>navigate('/')}/>
+                    </div>
+                    <div className="admin-desktop-header-navbar-container">
+                    <p onClick={()=>navigate('/dashboard',{state:finalData})} className="admin-header-navbar-link">Dashboard</p>
+                    <p onClick={()=>navigate('/sendAssessments',{state:finalData})} className="admin-header-navbar-link">Assessments</p>
+                    <p onClick={()=>navigate('/testReports',{state:finalData})} className="admin-header-navbar-link">Test Reports</p>
+                    <p onClick={()=>navigate('/studentReports',{state:finalData})} className="admin-header-navbar-link">Student Reports</p>
+                    <p className="admin-header-login" onClick={()=> navigate('/adminLogin')}>Admin</p>
+                      </div>
+                      <div className="admin-mobile-header-navbar-container">
+                      <Popup trigger={<button  className="admin-hamburger-btn"><GiHamburgerMenu /></button>} position="bottom" >
+                    <div className="admin-mobile-hamburger-menu-container">
+                    <ul className="admin mobile-hamburger-menu">
+                      <li onClick={()=>navigate('/dashboard',{state:finalData})} className='admin-header-navbar-link'>Dashboard</li>
+                      <li onClick={()=>navigate('/sendAssessments',{state:finalData})} className='admin-header-navbar-link'>Assessments</li>
+                      <li onClick={()=>navigate('/testReports',{state:finalData})} className='admin-header-navbar-link'>Test Resports</li>
+                      <li onClick={()=>navigate('/studentReports',{state:finalData})} className='admin-header-navbar-link'>Student Resports</li>
+                      <li onClick={()=> navigate('/adminLogin')} className="admin-header-login">Admin</li>
+                      </ul>
+                      </div>
+        </Popup>
+                      </div>
               </div>
-              <div style={{marginRight:'30px'}}>
-                <p style={{color:'white'}}onClick={handleSignOut}>Sign Out</p>
-              </div>
-            </div>
           ) : (
             <div className='display-column'>
               <h2>Login With Google</h2>

@@ -4,12 +4,23 @@ import Navbar from "./Navbar";
 import { useNavigate ,useLocation} from "react-router-dom";
 import { Chart } from "react-google-charts";
 import Cookies from "js-cookie";
+import {GiHamburgerMenu} from "react-icons/gi"
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 import './index.css'
 const Dashboard = () => {
   const location=useLocation()
   const navigate = useNavigate();
   const [finalData,setFinalData]=useState(location.state)
+  // const [isOpen, setIsOpen] = useState(false)
+  // const clickHamburger = () => {
+  //   setIsOpen(!isOpen)
+  // }
+
+  // const handleClose = () => {
+  //   setIsOpen(!isOpen)
+  // }
 
   const data=finalData.datat
   // const TotalDataLength=data.freshersJuniorData.length+data.fresherData.length+data.pythonData.length+
@@ -294,20 +305,54 @@ const Dashboard = () => {
     pieStartAngle:100,
   }
   return (
-    <div>
-      <div style={{paddingLeft:'30px',paddingTop:'10px',backgroundColor:'#0047AB',color:'white',height:'65px',display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
-              <div style={{display:'flex',alignItems:'center'}}>
-              <p onClick={()=>navigate('/')}style={{fontSize:'20px',marginRight:'30px',fontWeight:'bold'}}>ASSESSMENTS MADE SIMPLE </p>
-              <p onClick={()=>navigate('/dashboard',{state:finalData})} style={{fontSize:'18px',marginRight:'20px'}}>Dashboard</p>
-              <p onClick={()=>navigate('/sendAssessments',{state:finalData})}style={{fontSize:'18px',marginRight:'20px'}}>Assessments</p>
-              <p onClick={()=>navigate('/testReports',{state:finalData})} style={{fontSize:'18px',marginRight:'20px'}}>Test Reports</p>
-              <p onClick={()=>navigate('/studentReports',{state:finalData})} style={{fontSize:'18px'}}>Student Reports</p>
+    <>
+      <div className="admin-header-container">
+      <div className="admin-header-logo-container">
+              <img src="https://res.cloudinary.com/dufx8zalt/image/upload/v1687419355/logoimage1_krvkbq.png" alt="logo" style={{height:'50px', width:'100px', borderRadius:'10px'}} onClick={()=>navigate('/')}/>
               </div>
-              <div style={{marginRight:'30px'}}>
-                <p style={{color:'white'}} onClick={()=>
-                navigate('/adminLogin')}>Admin</p>
-              </div>
+              <div className="admin-desktop-header-navbar-container">
+              <p onClick={()=>navigate('/dashboard',{state:finalData})} className="admin-header-navbar-link">Dashboard</p>
+              <p onClick={()=>navigate('/sendAssessments',{state:finalData})} className="admin-header-navbar-link">Assessments</p>
+              <p onClick={()=>navigate('/testReports',{state:finalData})} className="admin-header-navbar-link">Test Reports</p>
+              <p onClick={()=>navigate('/studentReports',{state:finalData})} className="admin-header-navbar-link">Student Reports</p>
+              <p className="admin-header-login" onClick={()=> navigate('/adminLogin')}>Admin</p>
+                </div>
+                <div className="admin-mobile-header-navbar-container">
+                <Popup trigger={<button  className="admin-hamburger-btn"><GiHamburgerMenu /></button>} position="bottom" >
+              <div className="admin-mobile-hamburger-menu-container">
+              <ul className="admin mobile-hamburger-menu">
+                <li onClick={()=>navigate('/dashboard',{state:finalData})} className='admin-header-navbar-link'>Dashboard</li>
+                <li onClick={()=>navigate('/sendAssessments',{state:finalData})} className='admin-header-navbar-link'>Assessments</li>
+                <li onClick={()=>navigate('/testReports',{state:finalData})} className='admin-header-navbar-link'>Test Resports</li>
+                <li onClick={()=>navigate('/studentReports',{state:finalData})} className='admin-header-navbar-link'>Student Resports</li>
+                <li onClick={()=> navigate('/adminLogin')} className="admin-header-login">Admin</li>
+                </ul>
+                </div>
+  </Popup>
+                </div>
         </div>
+        {/* <div className="headerContainer">
+              <div className="headerLogoContainer">
+              <img src="https://res.cloudinary.com/dufx8zalt/image/upload/v1687419355/logoimage1_krvkbq.png" alt="logo" style={{height:'50px', width:'100px', borderRadius:'10px'}}/>
+              </div>
+              <div className="desktopHeaderNavbarContainer">
+              <p onClick={()=>navigate('/')} className='headerNavbarLink'>Home</p>
+              <p onClick={()=>navigate('/studentLogin')} className='headerNavbarLink'>Student</p>
+              <p onClick={()=>navigate('/adminLogin')} className='headerNavbarLink'>Admin</p>
+              </div>
+              <div className="mobileHeaderNavbarContainer">
+              
+              <Popup trigger={<button  className="hamburger-btn"><GiHamburgerMenu /></button>} position="bottom" >
+              <div className="mobile-hamburger-menu-container">
+              <ul className="mobile-hamburger-menu">
+                <li onClick={()=>navigate('/')} className='headerNavbarLink'>Home</li>
+                <li onClick={()=>navigate('/studentLogin')} className='headerNavbarLink'>Student</li>
+                <li onClick={()=>navigate('/adminLogin')} className='headerNavbarLink'>Admin</li>
+                </ul>
+                </div>
+  </Popup>
+              </div>
+              </div> */}
       <div style={{display:"flex",flexDirection:"column"}}>
         <h1 style={{textAlign:"center",marginBottom:'20px',"@media (max-width:820px)":{
           textAlign:"left",marginLeft:"20px"
@@ -501,7 +546,7 @@ const Dashboard = () => {
         }} 
       />
      </div>
-     </div>
+    </>
   );
 };
 
