@@ -8,6 +8,7 @@ import {GiHamburgerMenu} from "react-icons/gi"
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
+import './index.css'
 const Dashboard = () => {
   const location=useLocation()
   const navigate = useNavigate();
@@ -250,12 +251,57 @@ const Dashboard = () => {
   }, []);
   const options = {
     legend: "none",
-    title:"Test Metrics",
+    title:"All Tests Metrics",
     pieStartAngle: 100,
   };
   const fresheroptions = {
     legend:"none",
-    title:"FresherTestMetrics",
+    title:"Freshers Test Metrics",
+    pieStartAngle:100,
+  }
+  const pythontestoptions = {
+    legend:"none",
+    title:"Python Test Metrics",
+    pieStartAngle:100,
+  }
+  const fullstactoptions ={
+    legend:"none",
+    title:"Fullstack Test Metrics",
+    pieStartAngle:100,
+  }
+  const javaoptions= {
+    legend:"none",
+    title:"Java Test Metrics",
+    pieStartAngle:100,
+  }
+  const qaoptions = {
+    legend:"none",
+    title:"QA Test Metrics",
+    pieStartAngle:100,
+  }
+  const froentendFresheroprions= {
+    legend:"none",
+    title:"FroentEndFresher Test Metrics",
+    pieStartAngle:100,
+  }
+  const fresherjunioroptions = {
+    legend:"none",
+    title:"FresherJunior Test Metrics",
+    pieStartAngle:100,
+  }
+  const merndeveloperjunioroptions = {
+    legend:"none",
+    title:"Mern Developer junior Test Metrics",
+    pieStartAngle:100,
+  }
+  const mernintermediateoprions = {
+    legend:"none",
+    title:"Mern Developer junior Test Metrics",
+    pieStartAngle:100,
+  }
+  const shopifyoptions = {
+    legend:"none",
+    title:"Shopify_Test Metric",
     pieStartAngle:100,
   }
   return (
@@ -308,143 +354,200 @@ const Dashboard = () => {
               </div>
               </div> */}
       <div style={{display:"flex",flexDirection:"column"}}>
-        <div>
+        <h1 style={{textAlign:"center",marginBottom:'20px',"@media (max-width:820px)":{
+          textAlign:"left",marginLeft:"20px"
+        } }}>AMS METRICS</h1>
+          {/* <h2 style={{textAlign:"center",fontSize:"20px",marginBottom:'0px'}}>All TestS Metrics</h2> */}
         <Chart
         style={{
           marginLeft:'0px',
           width:'400px',
-          height:'400px'
+          height:'400px',"@media (max-width:768px) ":{
+            width:"200px",
+            height:"200px",
+            marginTop:"0px",
+          }
         }}
         chartType="PieChart"
         data={pieData}
         options={options}
       ></Chart>
-      </div>
         </div>
-        <div style={{display:'flex',alignItems:"center",flexWrap:"wrap"}}>
+        <div className="dashboard_chart_container">
        
-        <Chart 
-        style={{
-          marginLeft:'10px',
-          width:'400px',
-          height:'400px'
-        }}
+       <Chart 
         chartType="PieChart"
         data={fresherPieData}
         options={fresheroptions}
-        
+        style={{
+          marginLeft:'10px',
+         
+          width:'400px',
+          height:'400px',"@media (max-width:768px)and (max-height:768px) ":{
+            width:"200px",
+            height:"200px",
+            marginLeft:"20px"
+          }
+        }}
       />
       <Chart
-       style={{
-          marginLeft:'0px',
-          width:'400px',
-          height:'400px'
-        }}
         chartType="PieChart"
         data={pythonPieData}
-        options={options}
-      
+        options={pythontestoptions}
+        style={{
+          marginLeft:'10px',
+         
+          width:'400px',
+          height:'400px',"@media (max-width:768px) and (max-height:768px)":{
+            width:"200px",
+            height:"200px",
+            marginLeft:"20px"
+          }
+        }}
       />
-         <Chart
-          style={{
-            marginLeft:'0px',
-            width:'400px',
-            height:'400px'
-          }}
+      <Chart
         chartType="PieChart"
         data={fullStackPieData}
-        options={options}
-       
-      />
-      
-      </div>
-      <div style={{display:'flex',alignItems:"center",flexWrap:"wrap"}}>
+        options={fullstactoptions}
+        style={{
+          marginLeft:'10px',
+          marginRight:'10px',
+          width:'400px',
+          height:'400px',
+          "@media (max-width:768px) and (max-height:768px)":{
+            width:"200px",
+            height:"200px",
+            marginLeft:"20px"
+          }
+        }} 
+      /> 
+      {/* </div> */}
+      {/* <div className="dashboard_chart_container"> */}
       <Chart
-       style={{
-        marginLeft:'0px',
-        width:'400px',
-        height:'400px'
-      }}
         chartType="PieChart"
         data={javaPieData}
-        options={options}
+        options={javaoptions}
+        style={{
+          marginLeft:'10px',
+          width:'400px',
+          height:'400px',
+          "@media (max-width:768px) and and (max-height:768px) ":{
+            width:"200px",
+            height:"200px",
+            marginLeft:"20px"
+          }
+        }} 
       
       />
       <Chart
-       style={{
-        marginLeft:'0px',
-        width:'400px',
-        height:'400px'
-      }}
         chartType="PieChart"
         data={qaPieData}
-        options={options}
+        options={qaoptions}
+        style={{
+          marginLeft:'10px',
+          marginRight:'10px',
+          width:'400px',
+          height:'400px',
+          "@media (max-width:768px) and (max-height:768px) ":{
+            width:"200px",
+            height:"200px",
+            marginLeft:"20px"
+          }
+        }} 
       
       />
       <Chart 
-       style={{
-        marginLeft:'0px',
-        width:'400px',
-        height:'400px'
-      }}
         chartType="PieChart"
         data={frontendfresherPieData}
-        options={options}
+        options={froentendFresheroprions}
+        style={{
+          marginLeft:'10px',
+          marginRight:'10px',
+          width:'400px',
+          height:'400px',
+          "@media (max-width:768px) and (max-height:768px)":{
+            width:"200px",
+            height:"200px",
+            marginLeft:"20px"
+          }
+        }} 
         
       />
    
-      </div>
+      {/* </div>
     
-      <div style={{display:'flex',alignItems:"center",flexWrap:"wrap"}}>
+      <div style={{display:'flex',alignItems:"center",flexWrap:"wrap"}}> */}
 
-      
       <Chart
         chartType="PieChart"
         data={freshersJuniorPieData}
-        options={options}
+        options={fresherjunioroptions}
         style={{
-          marginLeft:'0px',
+          marginLeft:'10px',
+          marginRight:'10px',
           width:'400px',
-          height:'400px'
-        }}
+          height:'400px',
+          "@media (max-width:768px) and (max-height:768px)":{
+            width:"200px",
+            height:"200px",
+            marginLeft:"20px"
+          }
+        }} 
        
       />
       <Chart
         chartType="PieChart"
         data={merndeveloperJuniorPieData}
-        options={options}
-      
+        options={merndeveloperjunioroptions }
         style={{
-          marginLeft:'0px',
+          marginLeft:'10px',
+          marginRight:'10px',
           width:'400px',
-          height:'400px'
-        }}
+          height:'400px',
+          "@media (max-width:768px) and (max-height:768px)":{
+            width:"200px",
+            height:"200px",
+            marginLeft:"20px"
+          }
+        }} 
       />
       <Chart
         chartType="PieChart"
         data={merndeveloperintermediatePieData}
-        options={options}
+        options={mernintermediateoprions}
         style={{
-          marginLeft:'0px',
+          marginLeft:'10px',
+          marginRight:'10px',
           width:'400px',
-          height:'400px'
-        }}
+          height:'400px',
+          "@media (max-width:768px) and (max-height:768px)":{
+            width:"200px",
+            height:"200px",
+            marginLeft:"20px"
+          }
+        }} 
       />
-      </div>
-     <div>
+      {/* </div>
+     <div> */}
      <Chart
         chartType="PieChart"
         data={shopifyPieData}
-        options={options}
+        options={shopifyoptions}
         style={{
-          marginLeft:'0px',
+          marginLeft:'10px',
+          marginRight:'10px',
           width:'400px',
-          height:'400px'
-        }}
+          height:'400px',
+          "@media (max-width:768px)and (max-height:768px) ":{
+            width:"200px",
+            height:"200px",
+            marginLeft:"20px"
+          }
+        }} 
       />
      </div>
     </>
   );
 };
 
-export default Dashboard;
+  export default Dashboard;
