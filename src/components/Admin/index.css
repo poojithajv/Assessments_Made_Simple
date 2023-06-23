@@ -132,3 +132,25 @@ input[type="number"] {
   background-color: #EDFEFF;
   min-height: 100vh;
 }
+
+.dashboard_chart_container{
+  display: flex;
+  align-items:start;
+  flex-wrap: wrap;
+}
+
+@media(max-width:"768px") {
+  .dashboard_chart_container{
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    
+  }
+}
+
+.dashboard_chart{
+  margin-left: 0px;
+  width: "40%";
+  height: "400px";
+
+}
