@@ -45,7 +45,7 @@
 .headerNavbarLink:hover{
     transform: scale(1.2);
     transition: transform 2s;
-    color:cyan;
+    color:#1d1a69;
 }
 
 @media (max-width:768px){
@@ -57,5 +57,25 @@
         justify-content:center;
         align-items:center;
         font-size:28px;
+        
+    }
+
+    .hamburger-btn{
+        color:white;
+        border:none;
+        background-color:transparent;
+    }
+    
+    .mobile-hamburger-menu-container{
+        background-color:#1d1a69;
+        color:white;
+    }
+    .mobile-hamburger-menu{
+        color:#1d1a69;
+        background-color:#1d1a69;
+        color:white;
+        list-style-type:none;
     }
 }
+
+
